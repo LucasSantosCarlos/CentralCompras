@@ -1,0 +1,22 @@
+{
+  "name": "centralcompras",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasSantosCarlos/CentralCompras.git"
+  },
+  "author": "Lucas Santos Carlos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasSantosCarlos/CentralCompras/issues"
+  },
+  "homepage": "https://github.com/LucasSantosCarlos/CentralCompras#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
