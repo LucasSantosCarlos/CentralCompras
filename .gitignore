@@ -1,2 +1,5 @@
 # dependências
 node_modules/
+
+# dados json
+db/
