@@ -41,6 +41,27 @@ function sanitizeStatus(st) {
     return ok.includes(st) ? st : 'on';
 }
 
+
+/**
+ * @openapi
+ * /users:
+ *   get:
+ *     tags: [Users]
+ *     summary: Lista usuários (ou filtra por nome)
+ *     parameters:
+ *       - in: query
+ *         name: name
+ *         schema: { type: string }
+ *         description: Filtro parcial por nome (case-insensitive)
+ *     responses:
+ *       200:
+ *         description: Lista de usuários
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items: { $ref: '#/components/schemas/User' }
+ */
 router.get('/', async (req, res) => {
     const { name } = req.query;
     const users = await readUsers();
@@ -56,13 +77,56 @@ router.get('/', async (req, res) => {
 });
 
 
+/**
+ * @openapi
+ * /users/{id}:
+ *   get:
+ *     tags: [Users]
+ *     summary: Busca usuário por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: string }
+ *     responses:
+ *       200:
+ *         description: Usuário
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/User' }
+ *       404:
+ *         description: Usuário não encontrado
+ */
 router.get('/:id', async (req, res) => {
     const users = await readUsers();
     const u = users.find(x => x.id === req.params.id);
     if (!u) return res.status(404).json({ error: 'Usuário não encontrado' });
-    res.json(u);
+    const { pwd, ...safe } = u;
+    res.json(safe);
 });
 
+/**
+ * @openapi
+ * /users:
+ *   post:
+ *     tags: [Users]
+ *     summary: Cria usuário
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: { $ref: '#/components/schemas/UserCreate' }
+ *     responses:
+ *       201:
+ *         description: Criado
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/User' }
+ *       400:
+ *         description: Dados inválidos
+ *       409:
+ *         description: Conflito (user/email)
+ */
 router.post('/', async (req, res) => {
     const { name, contact_email, user, pwd, level, status } = req.body || {};
 
@@ -102,6 +166,25 @@ router.post('/', async (req, res) => {
     res.status(201).json(safe);
 });
 
+/**
+ * @openapi
+ * /users/login:
+ *   post:
+ *     tags: [Users]
+ *     summary: Login
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: { $ref: '#/components/schemas/LoginRequest' }
+ *     responses:
+ *       200:
+ *         description: OK
+ *       400:
+ *         description: Campos faltando
+ *       401:
+ *         description: Credenciais inválidas
+ */
 router.post('/login', async (req, res) => {
     const { user, pwd } = req.body || {};
     if (!user || !pwd) return res.status(400).json({ error: 'user e senha são obrigatórios' });
@@ -117,6 +200,32 @@ router.post('/login', async (req, res) => {
     res.json({ message: 'ok', user: safe });
 });
 
+/**
+ * @openapi
+ * /users/{id}:
+ *   put:
+ *     tags: [Users]
+ *     summary: Atualiza usuário
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: string }
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: { $ref: '#/components/schemas/UserUpdate' }
+ *     responses:
+ *       200:
+ *         description: Atualizado
+ *       400:
+ *         description: Dados inválidos
+ *       404:
+ *         description: Não encontrado
+ *       409:
+ *         description: Conflito (user/email)
+ */
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { name, contact_email, user, pwd, level, status } = req.body || {};
@@ -153,6 +262,23 @@ router.put('/:id', async (req, res) => {
 });
 
 
+/**
+ * @openapi
+ * /users/{id}:
+ *   delete:
+ *     tags: [Users]
+ *     summary: Remove usuário
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: string }
+ *     responses:
+ *       204:
+ *         description: Removido
+ *       404:
+ *         description: Não encontrado
+ */
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
 
