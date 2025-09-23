@@ -175,6 +175,59 @@ const options = {
                         contact_email: { type: 'string', format: 'email' },
                         status: { type: 'string', enum: ['on', 'off'] }
                     }
+                },
+                Product: {
+                    type: 'object',
+                    properties: {
+                        id: { type: 'string' },
+                        name: { type: 'string' },
+                        description: { type: 'string' },
+                        price: { type: 'number', example: 200.00 },
+                        stock_quantity: { type: 'integer', example: 8 },
+                        supplier_id: { type: 'string' },
+                        status: { type: 'string', enum: ['on', 'off'] }
+                    },
+                    required: ['id', 'name', 'price', 'stock_quantity', 'supplier_id', 'status'],
+                    example: {
+                        id: '7a6cc1282c5f6ec0235acd2bfa780145aa2a67fd',
+                        name: 'Teclado e mouse',
+                        description: 'Kit teclado e mouse sem fio',
+                        price: 200.00,
+                        stock_quantity: 8,
+                        supplier_id: '7a6cc1282c5f6ec0235acd2bfa780145aa2a67fd',
+                        status: 'on'
+                    }
+                },
+                ProductCreate: {
+                    type: 'object',
+                    properties: {
+                        name: { type: 'string' },
+                        description: { type: 'string' },
+                        price: { type: 'string', description: 'Aceita string ou número; será convertido para número >= 0' },
+                        stock_quantity: { type: 'string', description: 'Aceita string ou número inteiro >= 0' },
+                        supplier_id: { type: 'string' },
+                        status: { type: 'string', enum: ['on', 'off'] }
+                    },
+                    required: ['name', 'price', 'stock_quantity', 'supplier_id'],
+                    example: {
+                        name: 'Teclado e mouse',
+                        description: 'Kit teclado e mouse sem fio',
+                        price: '200.00',
+                        stock_quantity: '8',
+                        supplier_id: '7a6cc1282c5f6ec0235acd2bfa780145aa2a67fd',
+                        status: 'on'
+                    }
+                },
+                ProductUpdate: {
+                    type: 'object',
+                    properties: {
+                        name: { type: 'string' },
+                        description: { type: 'string' },
+                        price: { type: 'string' },
+                        stock_quantity: { type: 'string' },
+                        supplier_id: { type: 'string' },
+                        status: { type: 'string', enum: ['on', 'off'] }
+                    }
                 }
             }
         }
