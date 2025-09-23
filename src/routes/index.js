@@ -12,7 +12,7 @@ router.use('/campaing', campaingRoutes)
 router.use('/order', orderRoutes)
 router.use('/product', productRoutes)
 router.use('/store', storeRoutes)
-router.use('/suppliers', supplierRoutes)
+router.use('/supplier', supplierRoutes)
 router.use('/users', usersRoutes)
 
 module.exports = router

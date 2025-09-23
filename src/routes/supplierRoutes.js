@@ -43,7 +43,7 @@ function normalizePhone(str = '') {
 
 /**
  * @openapi
- * /suppliers:
+ * /supplier:
  *   get:
  *     tags: [Suppliers]
  *     summary: Lista fornecedores (ou filtra por nome e categoria)
@@ -83,7 +83,7 @@ router.get('/', async (req, res) => {
 
 /**
  * @openapi
- * /suppliers/{id}:
+ * /supplier/{id}:
  *   get:
  *     tags: [Suppliers]
  *     summary: Busca fornecedor por ID
@@ -107,7 +107,7 @@ router.get('/:id', async (req, res) => {
 
 /**
  * @openapi
- * /suppliers:
+ * /supplier:
  *   post:
  *     tags: [Suppliers]
  *     summary: Cria fornecedor
@@ -160,7 +160,7 @@ router.post('/', async (req, res) => {
 
 /**
  * @openapi
- * /suppliers/{id}:
+ * /supplier/{id}:
  *   put:
  *     tags: [Suppliers]
  *     summary: Atualiza fornecedor por ID
@@ -221,7 +221,7 @@ router.put('/:id', async (req, res) => {
 
 /**
  * @openapi
- * /suppliers/{id}:
+ * /supplier/{id}:
  *   delete:
  *     tags: [Suppliers]
  *     summary: Remove fornecedor por ID
