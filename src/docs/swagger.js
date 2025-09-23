@@ -139,6 +139,42 @@ const options = {
                         phone_number: { type: 'string' },
                         status: { type: 'string', enum: ['on', 'off'] }
                     }
+                },
+                Store: {
+                    type: 'object',
+                    properties: {
+                        id: { type: 'string' },
+                        store_name: { type: 'string' },
+                        cnpj: { type: 'string' },
+                        address: { type: 'string' },
+                        phone_number: { type: 'string' },
+                        contact_email: { type: 'string', format: 'email' },
+                        status: { type: 'string', enum: ['on', 'off'] }
+                    },
+                    required: ['id', 'store_name', 'cnpj', 'contact_email', 'status'],
+                },
+                StoreCreate: {
+                    type: 'object',
+                    properties: {
+                        store_name: { type: 'string' },
+                        cnpj: { type: 'string' },
+                        address: { type: 'string' },
+                        phone_number: { type: 'string' },
+                        contact_email: { type: 'string', format: 'email' },
+                        status: { type: 'string', enum: ['on', 'off'] }
+                    },
+                    required: ['store_name', 'cnpj', 'contact_email'],
+                },
+                StoreUpdate: {
+                    type: 'object',
+                    properties: {
+                        store_name: { type: 'string' },
+                        cnpj: { type: 'string' },
+                        address: { type: 'string' },
+                        phone_number: { type: 'string' },
+                        contact_email: { type: 'string', format: 'email' },
+                        status: { type: 'string', enum: ['on', 'off'] }
+                    }
                 }
             }
         }
