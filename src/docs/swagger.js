@@ -269,7 +269,49 @@ const options = {
                         status: { type: 'string', enum: ['Pending', 'Shipped', 'Delivered'] },
                         date: { type: 'string', format: 'date-time' }
                     }
+                },
+                Campaign: {
+                    type: 'object',
+                    properties: {
+                        id: { type: 'string' },
+                        supplier_id: { type: 'string' },
+                        name: { type: 'string' },
+                        start_date: { type: 'string', format: 'date-time' },
+                        end_date: { type: 'string', format: 'date-time' },
+                        discount_percentage: { type: 'number', minimum: 0, maximum: 100 }
+                    },
+                    required: ['id', 'supplier_id', 'name', 'start_date', 'end_date', 'discount_percentage'],
+                    example: {
+                        id: "7a6cc1282c5f6ec0235acd2bfa780145aa2a67fd",
+                        supplier_id: "7a6cc1282c5f6ec0235acd2bfa780145aa2a67fd",
+                        name: "Black Friday",
+                        start_date: "2023-08-15 16:00:00",
+                        end_date: "2023-08-20 23:59:59",
+                        discount_percentage: 20
+                    }
+                },
+                CampaignCreate: {
+                    type: 'object',
+                    properties: {
+                        supplier_id: { type: 'string' },
+                        name: { type: 'string' },
+                        start_date: { type: 'string', format: 'date-time' },
+                        end_date: { type: 'string', format: 'date-time' },
+                        discount_percentage: { type: 'string', description: "0 a 100; aceita string ou número" }
+                    },
+                    required: ['supplier_id', 'name', 'start_date', 'end_date', 'discount_percentage']
+                },
+                CampaignUpdate: {
+                    type: 'object',
+                    properties: {
+                        supplier_id: { type: 'string' },
+                        name: { type: 'string' },
+                        start_date: { type: 'string', format: 'date-time' },
+                        end_date: { type: 'string', format: 'date-time' },
+                        discount_percentage: { type: 'string' }
+                    }
                 }
+
             }
         }
     },
