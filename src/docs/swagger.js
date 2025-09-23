@@ -228,6 +228,47 @@ const options = {
                         supplier_id: { type: 'string' },
                         status: { type: 'string', enum: ['on', 'off'] }
                     }
+                },
+                Order: {
+                    type: 'object',
+                    properties: {
+                        id: { type: 'string' },
+                        store_id: { type: 'string' },
+                        item: { type: 'string', description: "Lista serializada de (product_id, quantity, campaign_id, unit_price)" },
+                        total_amount: { type: 'number' },
+                        status: { type: 'string', enum: ['Pending', 'Shipped', 'Delivered'] },
+                        date: { type: 'string', format: 'date-time' }
+                    },
+                    required: ['id', 'store_id', 'item', 'total_amount', 'status', 'date'],
+                    example: {
+                        id: "7a6cc1282c5f6ec0235acd2bfa780145aa2a67fd",
+                        store_id: "7a6cc1282c5f6ec0235acd2bfa780145aa2a67fd",
+                        item: "[(product_id, quantity, campaign_id, unit_price)... ]",
+                        total_amount: 123.00,
+                        status: "Pending",
+                        date: "2023-08-15 16:00:00"
+                    }
+                },
+                OrderCreate: {
+                    type: 'object',
+                    properties: {
+                        store_id: { type: 'string' },
+                        item: { type: 'string' },
+                        total_amount: { type: 'string' },
+                        status: { type: 'string', enum: ['Pending', 'Shipped', 'Delivered'] },
+                        date: { type: 'string', format: 'date-time' }
+                    },
+                    required: ['store_id', 'item', 'total_amount'],
+                },
+                OrderUpdate: {
+                    type: 'object',
+                    properties: {
+                        store_id: { type: 'string' },
+                        item: { type: 'string' },
+                        total_amount: { type: 'string' },
+                        status: { type: 'string', enum: ['Pending', 'Shipped', 'Delivered'] },
+                        date: { type: 'string', format: 'date-time' }
+                    }
                 }
             }
         }
